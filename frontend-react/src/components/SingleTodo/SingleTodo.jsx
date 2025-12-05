@@ -1,8 +1,8 @@
 import { useState } from "react";
-import "./todo.css";
+import "./singleTodo.css";
 import { TODO_STATUS_OPTIONS } from "../../config/todoStatusOptions";
 
-const Todo = ({ title, note, status }) => {
+const SingleTodo = ({ title, note, status }) => {
   const [selectedStatus, setSelectedStatus] = useState(status);
 
   return (
@@ -37,4 +37,4 @@ const Todo = ({ title, note, status }) => {
   );
 };
 
-export default Todo;
+export default SingleTodo;
