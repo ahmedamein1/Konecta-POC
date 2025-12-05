@@ -1,10 +1,13 @@
 import './App.css';
 import AppLayout from './components/AppLayout/AppLayout';
+import { TodosProvider } from './provider/TodosProvider';
 
 function App() {
   return (
     <div className="App">
-      <AppLayout/>
+      <TodosProvider>
+        <AppLayout />
+      </TodosProvider>
     </div>
   );
 }

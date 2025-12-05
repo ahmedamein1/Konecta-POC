@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./todosContainer.css";
 import SingleTodo from "../SingleTodo/SingleTodo";
+import { TodosContext } from "../../context/TodosContext";
 
 const TodosContainer = () => {
-  const staticTodos = [];
+  const { todos, fetchTodoLoading } = useContext(TodosContext);
 
-  const isEmpty = staticTodos.length === 0;
+  const [isEmpty, setIsEmpty] = useState(true);
+
+  useEffect(() => {
+    setIsEmpty(todos.length === 0);
+  }, [todos]);
 
   return (
     <div className="todos-container">
-      {isEmpty ? (
+      {fetchTodoLoading ? (
+        <p className="no-todos">Loading...</p>
+      ) : isEmpty ? (
         <p className="no-todos">No Todo Available</p>
       ) : (
-        staticTodos.map((todo) => (
+        todos.map((todo) => (
           <SingleTodo
             key={todo.id}
             title={todo.title}

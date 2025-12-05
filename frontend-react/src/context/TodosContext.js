@@ -1,6 +1,9 @@
 import { createContext } from "react";
 
-export const TodosContext = createContext({
-  todos: [],        
-  activeTodosCount: 0,  
-});
+export const todosState = {
+  todos: [],
+  activeTodosCount: 0,
+  fetchTodoLoading: true
+};
+
+export const TodosContext = createContext(todosState);
