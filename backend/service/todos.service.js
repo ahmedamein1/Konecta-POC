@@ -28,4 +28,29 @@ async function resetTodos() {
   }
 }
 
+async function createTodo(title, note) {
+  try {
+    const data = await fs.readFile(DATA_FILE, "utf8");
+    const todos = JSON.parse(data);
+
+    const newTodo = {
+      id: Date.now(),   
+      title,
+      note,
+      status: "NEW"    
+    };
+
+   
+    todos.push(newTodo);
+
+    await fs.writeFile(DATA_FILE, JSON.stringify(todos, null, 2));
+
+    return newTodo;
+
+  } catch (e) {
+    throw new Error("An error occurred while creating a todo.");
+  }
+}
+
+
 module.exports = { readTodos, resetTodos };
