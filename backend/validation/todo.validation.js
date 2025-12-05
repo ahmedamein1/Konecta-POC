@@ -18,4 +18,24 @@ function validateCreateTodo(userInput) {
   return { valid: true };
 }
 
-module.exports = { validateCreateTodo };
+function validateStatusUpdate(status) {
+  const allowed = ["NEW", "IN-PROGRESS", "DONE"];
+
+  if (!status || typeof status !== "string") {
+    return {
+      valid: false,
+      message: "Status is required."
+    };
+  }
+
+  if (!allowed.includes(status)) {
+    return {
+      valid: false,
+      message: `Invalid status. Allowed values are: ${allowed.join(", ")}.`
+    };
+  }
+
+  return { valid: true };
+}
+
+module.exports = { validateCreateTodo, validateStatusUpdate };

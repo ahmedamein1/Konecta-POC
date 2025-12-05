@@ -1,8 +1,17 @@
 const express = require("express");
 const router = express.Router();
 
-const { readTodos, resetTodos, createTodo, deleteTodo } = require("../service/todos.service");
-const { validateCreateTodo } = require("../validation/todo.validation");
+const {
+  readTodos,
+  resetTodos,
+  createTodo,
+  deleteTodo,
+  updateTodoStatus,
+} = require("../service/todos.service");
+const {
+  validateCreateTodo,
+  validateStatusUpdate,
+} = require("../validation/todo.validation");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -64,8 +73,33 @@ router.delete("/:id", async (req, res, next) => {
 
     res.status(200).json({
       message: "Todo deleted successfully",
-      deletedTodo
+      deletedTodo,
     });
+  } catch (err) {
+    err.status = err.status || 500;
+    next(err);
+  }
+});
+
+router.patch("/:id/status", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const validation = validateStatusUpdate(status);
+    if (!validation.valid) {
+      const error = new Error(validation.message);
+      error.status = 400;
+      return next(error);
+    }
+
+    const updatedTodo = await updateTodoStatus(id, status);
+
+    res.status(200).json({
+      message: "Todo status updated successfully",
+      todo: updatedTodo
+    });
+
   } catch (err) {
     err.status = err.status || 500;
     next(err);
