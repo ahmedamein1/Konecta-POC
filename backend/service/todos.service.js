@@ -1,5 +1,6 @@
 const fs = require("fs").promises;
 const path = require("path");
+const crypto = require("crypto");
 
 const DATA_FILE = path.join(__dirname, "../todos-data/todos.json");
 
@@ -34,7 +35,7 @@ async function createTodo(title, note) {
     const todos = JSON.parse(data);
 
     const newTodo = {
-      id: Date.now(),   
+      id: crypto.randomUUID(), 
       title,
       note,
       status: "NEW"    
