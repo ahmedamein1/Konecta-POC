@@ -28,9 +28,10 @@ const Todo = ({ title, note, status }) => {
           ))}
         </select>
 
-        <button className="todo-status-btn" onClick={() => {}}>
-          Update Status
-        </button>
+        <div className="todo-icon-actions">
+          <button className="todo-icon-btn">✏️</button>
+          <button className="todo-icon-btn">🗑️</button>
+        </div>
       </div>
     </div>
   );
