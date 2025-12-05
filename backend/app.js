@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const todoRouter = require("./router/todos");
+const todoRouter = require("./router/todos.router");
 
 const app = express();
 
