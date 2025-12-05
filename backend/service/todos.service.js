@@ -1,11 +1,12 @@
 const fs = require("fs").promises;
 const path = require("path");
 
-const DATA_FILE = path.join(__dirname, "../todos-data/todoss.json");
+const DATA_FILE = path.join(__dirname, "../todos-data/todos.json");
 
 async function readTodos() {
   try {
     const data = await fs.readFile(DATA_FILE, "utf8");
+    const todos = JSON.parse(data);
     const activeTodosNumber = todos.filter(
       (todo) => todo.status === "NEW" || todo.status === "IN-PROGRESS"
     ).length;
