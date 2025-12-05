@@ -7,10 +7,12 @@ const {
   createTodo,
   deleteTodo,
   updateTodoStatus,
+  updateTodo
 } = require("../service/todos.service");
 const {
   validateCreateTodo,
   validateStatusUpdate,
+  validateFullUpdate
 } = require("../validation/todo.validation");
 
 router.get("/", async (req, res, next) => {
@@ -105,5 +107,35 @@ router.patch("/:id/status", async (req, res, next) => {
     next(err);
   }
 });
+
+router.put("/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+   
+    const { title, note, status } = req.body;
+
+   
+    const validation = validateFullUpdate({ title, note, status });
+    if (!validation.valid) {
+      const error = new Error(validation.message);
+      error.status = 400;
+      return next(error);
+    }
+
+ 
+    const updatedTodo = await updateTodo(id, { title, note, status });
+
+    res.status(200).json({
+      message: "Todo updated successfully",
+      todo: updatedTodo
+    });
+
+  } catch (err) {
+    err.status = err.status || 500;
+    next(err);
+  }
+});
+
 
 module.exports = router;

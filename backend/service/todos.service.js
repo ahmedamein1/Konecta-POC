@@ -108,6 +108,38 @@ async function updateTodoStatus(id, status) {
 }
 
 
+async function updateTodo(id, { title, note, status }) {
+  try {
+    const data = await fs.readFile(DATA_FILE, "utf8");
+    const todos = JSON.parse(data);
+
+    const index = todos.findIndex((t) => t.id === id);
+
+    if (index === -1) {
+      const error = new Error("Todo not found.");
+      error.status = 404;
+      throw error;
+    }
+
+    todos[index].title = title;
+    todos[index].note = note;
+    todos[index].status = status;
+
+ 
+    await fs.writeFile(DATA_FILE, JSON.stringify(todos, null, 2));
+
+    return todos[index];
+
+  } catch (e) {
+    if (!e.status) {
+      throw new Error("An error occurred while updating the todo.");
+    }
+    throw e;
+  }
+}
 
 
-module.exports = { readTodos, resetTodos, createTodo, deleteTodo, updateTodoStatus };
+
+
+
+module.exports = { readTodos, resetTodos, createTodo, deleteTodo, updateTodoStatus, updateTodo };
