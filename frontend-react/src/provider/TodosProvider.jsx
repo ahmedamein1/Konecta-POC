@@ -13,7 +13,7 @@ export const TodosProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-        
+
       try {
         const res = await getTodos();
 

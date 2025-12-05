@@ -1,13 +1,19 @@
-import React, { useState } from "react";
- import "./activeTodoNumber.css";
+import React, { useContext } from "react";
+import "./activeTodoNumber.css";
+import { TodosContext } from "../../context/TodosContext";
 
 const ActiveTodoNumber = () => {
-  const [activeTodos, setActiveTodos] = useState(0);
+  const { activeTodosCount, fetchTodoLoading } = useContext(TodosContext);
 
   return (
     <div className="active-todo-card">
       <h3 className="active-todo-title">Active Todos:</h3>
-      <p className="active-todo-count">{activeTodos}</p>
+
+      {fetchTodoLoading ? (
+        <p className="active-todo-count">Loading...</p>
+      ) : (
+        <p className="active-todo-count">{activeTodosCount}</p>
+      )}
     </div>
   );
 };
