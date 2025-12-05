@@ -7,16 +7,14 @@ import "./appLayout.css";
 const AppLayout = () => {
   return (
     <div className="app-layout">
-
       <div className="left-side">
-        <ActiveTodoNumber />
-        <CreateTodo />
-      </div>
-
-      <div className="right-side">
         <TodosContainer />
       </div>
 
+      <div className="right-side">
+        <CreateTodo />
+        <ActiveTodoNumber />
+      </div>
     </div>
   );
 };
