@@ -1,5 +1,5 @@
-function validateCreateTodo(body) {
-  const { title, note } = body;
+function validateCreateTodo(userInput) {
+  const { title, note } = userInput;
 
   if (!title || typeof title !== "string" || title.trim() === "") {
     return {
