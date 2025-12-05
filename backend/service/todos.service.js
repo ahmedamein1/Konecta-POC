@@ -1,11 +1,11 @@
-const fs = require("fs");
+const fs = require("fs").promises;
 const path = require("path");
 
 const DATA_FILE = path.join(__dirname, "../todos-data/todos.json");
 
-function readTodos() {
+async function readTodos() {
   try {
-    const data = fs.readFileSync(DATA_FILE, "utf8");
+    const data = await fs.readFile(DATA_FILE, "utf8");
     return JSON.parse(data);
   } catch (e) {
     return [];
