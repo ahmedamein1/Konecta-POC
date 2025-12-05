@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./todo.css";
 import { TODO_STATUS_OPTIONS } from "../../config/todoStatusOptions";
 
