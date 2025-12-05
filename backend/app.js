@@ -1,13 +1,19 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const todoRouter = require("./router/todos.router");
 
 const app = express();
 
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://localhost:4200"],
+  })
+);
+
 app.use(express.json());
+
 app.use("/todo", todoRouter);
-
-
 
 app.use((req, res, next) => {
   const error = new Error(
