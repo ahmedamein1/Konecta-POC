@@ -31,7 +31,7 @@
       [(ngModel)]="note"
     ></textarea>
 
-    <button class="create-btn" [disabled]="loading">
+    <button class="create-btn" [disabled]="loading" (click)="handleCreate()">
       Create
     </button>
   </div>

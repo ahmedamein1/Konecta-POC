@@ -1,5 +1,4 @@
-<div class="todo-card-wrapper" [ngClass]="{ 'loading': loading }">
-
+<div class="todo-card-wrapper" [ngClass]="{ loading: loading }">
   <div *ngIf="loading" class="todo-spinner"></div>
 
   <div class="todo-card" [ngClass]="'status-' + status">
@@ -12,39 +11,27 @@
       </div>
 
       <div class="todo-actions">
-        <select 
-          class="todo-select" 
+        <select
+          class="todo-select"
           [disabled]="loading"
           [(ngModel)]="status"
+          (change)="handleStatusChange($event)"
         >
-          <option 
-            *ngFor="let option of statusOptions" 
-            [value]="option.value">
+          <option *ngFor="let option of statusOptions" [value]="option.value">
             {{ option.label }}
           </option>
         </select>
 
         <div class="todo-icon-actions">
-          <button class="todo-icon-btn">
-            ✏️
-          </button>
+          <button class="todo-icon-btn">✏️</button>
 
-          <button class="todo-icon-btn"  (click)="handleDelete()">
-            🗑️
-          </button>
+          <button class="todo-icon-btn" (click)="handleDelete()">🗑️</button>
         </div>
       </div>
     </ng-container>
 
-    <ng-container *ngIf="editMode">
-      <!-- <app-edit-todo-content
-        [title]="title"
-        [note]="note"
-        [status]="status"
-        (onCancel)="editMode = false"
-        (onUpdate)="handleUpdateTodo($event)"
-      ></app-edit-todo-content> -->
-    </ng-container>
-
+    <!-- <ng-container *ngIf="editMode">
+     
+    </ng-container> -->
   </div>
 </div>

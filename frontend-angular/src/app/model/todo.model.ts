@@ -6,3 +6,8 @@ export interface Todo {
   note: string;
   status: TodoStatus;
 }
+
+export interface CreateTodoInput {
+  title: string;
+  note: string;
+}
