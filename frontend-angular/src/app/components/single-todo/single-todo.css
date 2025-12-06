@@ -1,7 +1,3 @@
-.todo-card-wrapper {
-  position: relative;
-}
-
 .todo-card {
   display: flex;
   align-items: stretch;
@@ -19,18 +15,6 @@
   min-width: 8px;
   border-radius: 10px 0 0 10px;
   flex-shrink: 0;
-}
-
-.status-NEW .todo-left-strip {
-  background-color: #3b82f6;
-}
-
-.status-IN-PROGRESS .todo-left-strip {
-  background-color: #f59e0b;
-}
-
-.status-DONE .todo-left-strip {
-  background-color: #10b981;
 }
 
 .todo-content {
@@ -67,15 +51,16 @@
   flex-shrink: 0;
 }
 
-.todo-select {
-  width: 130px;
-  padding: 6px 8px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background: #fff;
-  font-size: 14px;
-  color: #111;
-  cursor: pointer;
+.status-NEW .todo-left-strip {
+  background-color: #3b82f6;
+}
+
+.status-IN-PROGRESS .todo-left-strip {
+  background-color: #f59e0b;
+}
+
+.status-DONE .todo-left-strip {
+  background-color: #10b981;
 }
 
 .todo-icon-actions {
@@ -99,6 +84,21 @@
 .todo-icon-btn:hover {
   color: #000;
   transform: scale(1.3);
+}
+
+.todo-select {
+  width: 130px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 14px;
+  color: #111;
+  cursor: pointer;
+}
+
+.todo-card-wrapper {
+  position: relative;
 }
 
 .todo-card-wrapper.loading .todo-card {

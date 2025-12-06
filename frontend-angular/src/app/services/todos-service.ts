@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Todo } from "../model/todo.model";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, catchError, finalize, tap } from "rxjs";
 import { Injectable } from "@angular/core";
 import { API_URL } from "../config/api-endpoint";
 import { ToastrService } from "ngx-toastr";
@@ -37,4 +37,28 @@ export class TodosService {
         }
       });
   }
+
+
+  deleteTodo(id: string) {
+  return this.http
+    .delete<{ message: string; activeTodosNumber: number }>(`${API_URL}/${id}`)
+    .pipe(
+      tap((res) => {
+        const updated = this.todos$.value.filter(t => t.id !== id);
+        this.todos$.next(updated);
+
+        if (res?.activeTodosNumber !== undefined) {
+          this.activeTodosCount$.next(res.activeTodosNumber);
+        }
+
+        this.toastr.success("Todo deleted successfully.");
+      }),
+      catchError((err) => {
+        const backendMsg = err?.error?.message || "Unknown error occurred.";
+        this.toastr.error(backendMsg, "Error");
+        throw err; 
+      })
+    );
+}
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { TodosService } from '../../services/todos-service';
@@ -19,6 +19,7 @@ export class ActiveTodoNumber implements OnInit, OnDestroy {
 
   constructor(
     private todosService: TodosService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -26,12 +27,14 @@ export class ActiveTodoNumber implements OnInit, OnDestroy {
     this.subs.add(
       this.todosService.fetchLoading$.subscribe(isLoading => {
         this.fetchTodoLoading = isLoading;
+        this.cdr.detectChanges();
       })
     );
 
     this.subs.add(
       this.todosService.activeTodosCount$.subscribe(count => {
         this.activeTodosCount = count;
+        this.cdr.detectChanges();
       })
     );
   }
