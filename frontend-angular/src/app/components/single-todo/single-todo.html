@@ -29,14 +29,14 @@
       </div>
     </ng-container>
 
-    <ng-container *ngIf="editMode">
+    <div *ngIf="editMode" class="edit-todo">
       <app-edit-todo-content
         [title]="title"
         [note]="note"
         [status]="status"
         (onCancel)="editMode = false"
       ></app-edit-todo-content>
-    </ng-container>
+    </div>
 
   </div>
 </div>
