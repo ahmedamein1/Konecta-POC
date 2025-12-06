@@ -2,17 +2,15 @@
 
   <div class="todos-container" [class.empty]="isEmpty || fetchLoading">
 
-    <!-- Loading -->
     <div *ngIf="fetchLoading" class="todos-loading-wrapper">
       <div class="todos-loading-spinner"></div>
     </div>
 
-    <!-- Empty State -->
     <p *ngIf="!fetchLoading && isEmpty" class="no-todos">
       No Todo Available
     </p>
 
-    <!-- List of Todos -->
+
     <ng-container *ngIf="!fetchLoading && !isEmpty">
       <app-single-todo
         *ngFor="let todo of todos"
