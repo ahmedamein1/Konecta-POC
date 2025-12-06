@@ -1,14 +1,8 @@
 [
   {
-    "id": "2",
-    "title": "Go to Gym",
-    "note": "Chest + triceps",
-    "status": "DONE"
-  },
-  {
     "id": "3",
-    "title": "Buy Groceries",
-    "note": "Milk, bread, eggs",
+    "title": "Buy Grocerie",
+    "note": "Milk, bread, egg",
     "status": "DONE"
   }
 ]
