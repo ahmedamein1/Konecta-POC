@@ -1,0 +1,30 @@
+<div class="todos-wrapper">
+
+  <div class="todos-filter-bar">
+    <select [(ngModel)]="filter" class="todos-filter-select">
+      <option value="ALL">All</option>
+      <option value="NEW">New</option>
+      <option value="IN-PROGRESS">In-Progress</option>
+      <option value="DONE">Done</option>
+    </select>
+  </div>
+
+  <div class="todos-container" [class.empty]="isEmpty || fetchTodoLoading">
+
+    <div *ngIf="fetchTodoLoading" class="todos-loading-wrapper">
+      <div class="todos-loading-spinner"></div>
+    </div>
+
+    <p *ngIf="!fetchTodoLoading && isEmpty" class="no-todos">
+      No Todo Available
+    </p>
+
+    <ng-container *ngIf="!fetchTodoLoading && !isEmpty">
+      <app-single-todo
+        *ngFor="let todo of filteredTodos"
+      >
+      </app-single-todo>
+    </ng-container>
+
+  </div>
+</div>

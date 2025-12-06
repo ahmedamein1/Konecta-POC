@@ -1,0 +1,38 @@
+<div class="create-wrapper">
+  
+  <div *ngIf="loading" class="create-overlay">
+    <div class="big-spinner"></div>
+  </div>
+
+  <div class="create-todo-card" [class.blurred]="loading">
+    <h3 class="create-title">Create New Todo</h3>
+
+    <label class="create-label">
+      Title: <span class="required-astric">*</span>
+    </label>
+
+    <input
+      type="text"
+      class="create-input"
+      [class.input-error]="error"
+      [(ngModel)]="title"
+      placeholder="Title"
+      (input)="error && title.trim() ? error = false : null"
+    />
+
+    <p *ngIf="error" class="error-text">Title is required.</p>
+
+    <label class="create-label">Note:</label>
+
+    <textarea
+      class="create-textarea"
+      placeholder="Note"
+      rows="6"
+      [(ngModel)]="note"
+    ></textarea>
+
+    <button class="create-btn" [disabled]="loading">
+      Create
+    </button>
+  </div>
+</div>
