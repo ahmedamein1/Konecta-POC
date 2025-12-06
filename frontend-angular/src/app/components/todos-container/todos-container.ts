@@ -14,15 +14,12 @@ export class TodosContainer {
   filter = 'ALL';
   fetchTodoLoading = false;
 
-  todos = [
-    { id: 1, title: 'Todo One', note: 'Note One', status: 'NEW' },
-    { id: 2, title: 'Todo Two', note: 'Note Two', status: 'IN-PROGRESS' },
-    { id: 3, title: 'Todo Three', note: 'Note Three', status: 'DONE' }
-  ];
+  todos = []
+  
 
   get filteredTodos() {
-    if (this.filter === 'ALL') return this.todos;
-    return this.todos.filter(t => t.status === this.filter);
+  
+    return []
   }
 
   get isEmpty() {

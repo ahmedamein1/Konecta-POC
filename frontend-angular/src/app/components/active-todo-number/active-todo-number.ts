@@ -10,5 +10,5 @@ import { CommonModule } from '@angular/common';
 })
 export class ActiveTodoNumber {
   fetchTodoLoading = false;
-  activeTodosCount = 3;
+  activeTodosCount = 0;
 }
