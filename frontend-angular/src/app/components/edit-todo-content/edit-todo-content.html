@@ -1,0 +1,41 @@
+<div class="edit-todo-container">
+  
+  <label class="edit-label">
+    Title <span class="required">*</span>
+  </label>
+
+  <input
+    type="text"
+    class="edit-input"
+    [(ngModel)]="editTitle"
+    placeholder="Enter title"
+  />
+
+  <label class="edit-label">Note</label>
+
+  <textarea
+    class="edit-textarea"
+    rows="4"
+    [(ngModel)]="editNote"
+    placeholder="Enter note"
+  ></textarea>
+
+  <label class="edit-label">Status</label>
+
+  <select class="edit-select" [(ngModel)]="editStatus">
+    <option *ngFor="let o of statusOptions" [value]="o.value">
+      {{ o.label }}
+    </option>
+  </select>
+
+  <div class="edit-actions">
+    <button class="edit-btn update-btn" (click)="handleUpdate()">
+      Update
+    </button>
+
+    <button class="edit-btn cancel-btn" (click)="handleCancel()">
+      Cancel
+    </button>
+  </div>
+
+</div>

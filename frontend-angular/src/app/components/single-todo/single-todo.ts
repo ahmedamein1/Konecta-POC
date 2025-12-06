@@ -5,11 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { TodosService } from '../../services/todos-service';
 import { finalize } from 'rxjs';
 import { TodoStatus } from '../../model/todo.model';
+import { EditTodoContent } from "../edit-todo-content/edit-todo-content";
 
 @Component({
   selector: 'app-single-todo',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, EditTodoContent],
   templateUrl: './single-todo.html',
   styleUrls: ['./single-todo.css'],
 })
