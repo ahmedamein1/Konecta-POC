@@ -11,7 +11,7 @@ export const createTodo = async (todoData) => {
 };
 
 export const updateTodoStatus = async (id, status) => {
-  return await axios.patch(`${API_URL}/${id}`, { status });
+  return await axios.patch(`${API_URL}/${id}/status`, { status });
 };
 
 export const updateTodo = async (id, data) => {

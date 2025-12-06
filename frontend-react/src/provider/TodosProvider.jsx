@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { TodosContext, todosState } from "../context/TodosContext";
-import { getTodos, deleteTodo } from "../service/todosService";
+import { getTodos, deleteTodo, updateTodoStatus } from "../service/todosService";
 import { toast } from "react-toastify";
 
 export const TodosProvider = ({ children }) => {
@@ -52,6 +52,27 @@ export const TodosProvider = ({ children }) => {
     }
   };
 
+  const updateStatusById = async (id, newStatus) => {
+    try {
+      await updateTodoStatus(id, newStatus);
+
+      const updatedList = todos.map((todo) =>
+        todo.id === id ? { ...todo, status: newStatus } : todo
+      );
+
+      setTodos(updatedList);
+
+      const updatedActive = updatedList.filter((t) => t.status !== "DONE").length;
+      setActiveTodosCount(updatedActive);
+
+      toast.success("Status updated!");
+
+    } catch (err) {
+      console.error("Failed to update status:", err.response?.data || err);
+      toast.error(err.response?.data?.message || "Failed to update status.");
+    }
+  };
+
   return (
     <TodosContext.Provider
       value={{
@@ -59,6 +80,7 @@ export const TodosProvider = ({ children }) => {
         activeTodosCount,
         fetchTodoLoading,
         deleteTodoById,
+        updateStatusById
       }}
     >
       {children}

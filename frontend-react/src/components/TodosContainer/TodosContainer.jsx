@@ -4,7 +4,7 @@ import SingleTodo from "../SingleTodo/SingleTodo";
 import { TodosContext } from "../../context/TodosContext";
 
 const TodosContainer = () => {
-  const { todos, fetchTodoLoading, deleteTodoById } = useContext(TodosContext);
+  const { todos, fetchTodoLoading, deleteTodoById, updateStatusById } = useContext(TodosContext);
 
   const [isEmpty, setIsEmpty] = useState(true);
 
@@ -28,6 +28,8 @@ const TodosContainer = () => {
             note={todo.note}
             status={todo.status}
             onDelete={() => deleteTodoById(todo.id)}
+
+            onStatusChange={(newStatus) => updateStatusById(todo.id, newStatus)}
           />
         ))
       )}

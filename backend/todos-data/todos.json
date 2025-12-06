@@ -1,15 +1,9 @@
 [
   {
-    "id": "1",
-    "title": "Finish React Project",
-    "note": "Work on context provider and layout",
-    "status": "IN-PROGRESS"
-  },
-  {
     "id": "2",
     "title": "Go to Gym",
     "note": "Chest + triceps",
-    "status": "NEW"
+    "status": "DONE"
   },
   {
     "id": "3",

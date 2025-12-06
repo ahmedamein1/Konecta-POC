@@ -2,13 +2,19 @@ import { useState } from "react";
 import "./singleTodo.css";
 import { TODO_STATUS_OPTIONS } from "../../config/todoStatusOptions";
 
-const SingleTodo = ({ title, note, status, onDelete }) => {
-  const [selectedStatus, setSelectedStatus] = useState(status);
+const SingleTodo = ({ title, note, status, onDelete, onStatusChange  }) => {
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
     setLoading(true);
     await onDelete();
+    setLoading(false);
+  };
+
+  const handleStatusUpdate = async (e) => {
+    const newStatus = e.target.value;
+    setLoading(true);
+    await onStatusChange(newStatus);
     setLoading(false);
   };
 
@@ -26,8 +32,8 @@ const SingleTodo = ({ title, note, status, onDelete }) => {
 
         <div className="todo-actions">
           <select
-            value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
+            value={status}
+            onChange={handleStatusUpdate}
             className="todo-select"
             disabled={loading}
           >
