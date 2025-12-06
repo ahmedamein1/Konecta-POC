@@ -14,3 +14,19 @@
   flex-direction: column;
   gap: 20px;
 }
+
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .right-side {
+    width: 100%;
+    order: 1;        
+  }
+
+  .left-side {
+    width: 100%;
+    order: 2;        
+  }
+}
