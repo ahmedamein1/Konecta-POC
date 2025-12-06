@@ -10,7 +10,9 @@ const ActiveTodoNumber = () => {
       <h3 className="active-todo-title">Active Todos:</h3>
 
       {fetchTodoLoading ? (
-        <p className="active-todo-count">Loading...</p>
+         <div className="todos-loading-wrapper">
+          <div className="todos-loading-spinner"></div>
+        </div>
       ) : (
         <p className="active-todo-count">{activeTodosCount}</p>
       )}

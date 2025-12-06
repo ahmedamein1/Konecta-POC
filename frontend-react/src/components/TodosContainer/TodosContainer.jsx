@@ -15,7 +15,9 @@ const TodosContainer = () => {
   return (
     <div className="todos-container">
       {fetchTodoLoading ? (
-        <p className="no-todos">Loading...</p>
+        <div className="todos-loading-wrapper">
+          <div className="todos-loading-spinner"></div>
+        </div>
       ) : isEmpty ? (
         <p className="no-todos">No Todo Available</p>
       ) : (
@@ -25,8 +27,7 @@ const TodosContainer = () => {
             title={todo.title}
             note={todo.note}
             status={todo.status}
-
-            onDelete={()=>deleteTodoById(todo.id)}
+            onDelete={() => deleteTodoById(todo.id)}
           />
         ))
       )}
