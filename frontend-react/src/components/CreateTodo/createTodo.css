@@ -1,3 +1,37 @@
+.create-wrapper {
+  position: relative;
+}
+
+
+.create-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+  border-radius: 12px;
+}
+
+
+.big-spinner {
+  width: 40px;
+  height: 40px;
+  border: 5px solid #ddd;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+
+.blurred {
+  filter: blur(2px);
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+
 .create-todo-card {
   background: #ffffff;
   padding: 16px;
@@ -26,6 +60,7 @@
   color: red;
 }
 
+
 .create-input,
 .create-textarea {
   padding: 8px 10px;
@@ -39,6 +74,7 @@
   resize: none;
 }
 
+
 .create-btn {
   padding: 10px;
   background: #03a31b;
@@ -47,8 +83,35 @@
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
+  transition: 0.2s ease;
 }
 
 .create-btn:hover {
   opacity: 0.9;
+}
+
+
+.input-error {
+  border: 1px solid red !important;
+}
+
+.error-text {
+  color: red;
+  font-size: 12px;
+  margin-top: -8px;
+}
+
+.create-spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  animation: spin 0.7s linear infinite;
+  margin: auto;
+}
+
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }

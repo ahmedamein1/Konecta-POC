@@ -17,9 +17,11 @@
   flex-shrink: 0;
 }
 
+
 .todo-content {
   flex: 1;
   padding: 16px;
+  min-width: 0; 
 }
 
 .todo-title {
@@ -28,6 +30,8 @@
   font-weight: 700;
   color: #111;
   letter-spacing: 0.3px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .todo-note {
@@ -35,13 +39,18 @@
   font-size: 14px;
   color: #555;
   line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
+
 
 .todo-actions {
   display: flex;
   padding: 16px;
   flex-direction: column;
   gap: 12px;
+  width: 120px; 
+  flex-shrink: 0;
 }
 
 .status-NEW .todo-left-strip {
@@ -59,11 +68,10 @@
 .todo-icon-actions {
   display: flex;
   flex-direction: row;
-  align-items: center;    
-  justify-content: center; 
-  gap: 5px;               
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
-
 
 .todo-icon-btn {
   background: transparent;
@@ -95,14 +103,12 @@
   position: relative;
 }
 
-
 .todo-card-wrapper.loading .todo-card {
   filter: blur(2px);
   opacity: 0.6;
   pointer-events: none;
   transition: 0.2s ease;
 }
-
 
 .todo-spinner {
   position: absolute;
@@ -117,16 +123,8 @@
   z-index: 10;
 }
 
-
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
 }
-
-
-
-
-
-
-
