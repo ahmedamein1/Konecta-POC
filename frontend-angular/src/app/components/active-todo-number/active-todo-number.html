@@ -1,0 +1,11 @@
+<div class="active-todo-card">
+  <h3 class="active-todo-title">Active Todos:</h3>
+
+  <div *ngIf="fetchTodoLoading; else showCount" class="todos-loading-wrapper">
+    <div class="todos-loading-spinner"></div>
+  </div>
+
+  <ng-template #showCount>
+    <p class="active-todo-count">{{ activeTodosCount }}</p>
+  </ng-template>
+</div>

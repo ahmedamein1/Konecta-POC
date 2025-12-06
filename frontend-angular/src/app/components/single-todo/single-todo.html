@@ -1,0 +1,27 @@
+<div class="todo-card-wrapper">
+  <div class="todo-card" [ngClass]="'status-' + currentStatus">
+    
+    <div class="todo-left-strip"></div>
+    <div class="todo-content">
+      <h3 class="todo-title">My First Todo</h3>
+
+      <p class="todo-note">
+        This is a static note — same as your React version.
+      </p>
+    </div>
+
+    <div class="todo-actions">
+      <select class="todo-select" [(ngModel)]="currentStatus">
+        <option *ngFor="let option of statusOptions" [value]="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+
+      <div class="todo-icon-actions">
+        <button class="todo-icon-btn">✏️</button>
+        <button class="todo-icon-btn">🗑️</button>
+      </div>
+    </div>
+
+  </div>
+</div>
