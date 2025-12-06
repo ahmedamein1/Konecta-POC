@@ -4,7 +4,6 @@
   <div class="todo-card" [ngClass]="'status-' + status">
     <div class="todo-left-strip"></div>
 
-    <!-- VIEW MODE -->
     <ng-container *ngIf="!editMode">
       <div class="todo-content">
         <h3 class="todo-title">{{ title }}</h3>
@@ -36,7 +35,8 @@
         [note]="note"
         [status]="status"
         (onCancel)="editMode = false"
-      />
+      ></app-edit-todo-content>
     </ng-container>
+
   </div>
 </div>

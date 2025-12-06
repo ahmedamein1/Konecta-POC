@@ -1,10 +1,9 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { TODO_STATUS_OPTIONS } from '../../config/todo-status-options';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TodosService } from '../../services/todos-service';
 import { finalize } from 'rxjs';
-import { TodoStatus } from '../../model/todo.model';
 import { EditTodoContent } from "../edit-todo-content/edit-todo-content";
 
 @Component({
@@ -14,7 +13,8 @@ import { EditTodoContent } from "../edit-todo-content/edit-todo-content";
   templateUrl: './single-todo.html',
   styleUrls: ['./single-todo.css'],
 })
-export class SingleTodo {
+export class SingleTodo implements OnInit {
+
   @Input() title!: string;
   @Input() note!: string;
   @Input() status!: string;
@@ -24,15 +24,20 @@ export class SingleTodo {
   loading = false;
   editMode = false;
 
+  originalStatus!: string; 
+
   constructor(private todosService: TodosService, private cdr: ChangeDetectorRef) {}
+
+  ngOnInit() {
+    this.originalStatus = this.status; 
+  }
 
   handleDelete() {
     if (!this.todoId) return;
 
     this.loading = true;
 
-    this.todosService
-      .deleteTodo(this.todoId)
+    this.todosService.deleteTodo(this.todoId)
       .pipe(
         finalize(() => {
           this.loading = false;
@@ -44,18 +49,28 @@ export class SingleTodo {
 
   handleStatusChange(event: any) {
     const newStatus = event.target.value;
+    const previousStatus = this.originalStatus; 
 
     this.loading = true;
 
-    this.todosService
-      .updateTodoStatus(this.todoId, newStatus)
+    this.todosService.updateTodoStatus(this.todoId, newStatus)
       .pipe(
         finalize(() => {
           this.loading = false;
           this.cdr.detectChanges();
         })
       )
-      .subscribe();
+      .subscribe({
+        next: () => {
+         
+          this.originalStatus = newStatus;
+        },
+        error: () => {
+        
+          this.status = previousStatus;
+          this.cdr.detectChanges();
+        }
+      });
   }
 
   handleUpdateTodo(updated: any) {
