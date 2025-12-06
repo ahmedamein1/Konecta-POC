@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { TodosContext, todosState } from "../context/TodosContext";
-import { getTodos } from "../service/todosService";
+import { getTodos, deleteTodo } from "../service/todosService";
 
 export const TodosProvider = ({ children }) => {
   const [todos, setTodos] = useState(todosState.todos);
@@ -15,6 +15,7 @@ export const TodosProvider = ({ children }) => {
     const fetchData = async () => {
 
       try {
+        setFetchTodoLoading(true)
         const res = await getTodos();
 
         const fetchedTodos = res.data.todos || [];
@@ -34,12 +35,27 @@ export const TodosProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  const deleteTodoById  = async (id) => {
+    try {
+      await deleteTodo(id);
+
+      const updated = todos.filter((todo) => todo.id !== id);
+      setTodos(updated);
+
+      const updatedActive = updated.filter((t) => t.status !== "DONE").length;
+      setActiveTodosCount(updatedActive);
+    } catch (err) {
+       console.error("Failed to delete todo:", err.response?.data || err);
+    }
+  };
+
   return (
     <TodosContext.Provider
       value={{
         todos,
         activeTodosCount,
-        fetchTodoLoading
+        fetchTodoLoading,
+        deleteTodoById
       }}
     >
       {children}

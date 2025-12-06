@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./singleTodo.css";
 import { TODO_STATUS_OPTIONS } from "../../config/todoStatusOptions";
 
-const SingleTodo = ({ title, note, status }) => {
+const SingleTodo = ({ title, note, status, onDelete }) => {
   const [selectedStatus, setSelectedStatus] = useState(status);
 
   return (
@@ -30,7 +30,7 @@ const SingleTodo = ({ title, note, status }) => {
 
         <div className="todo-icon-actions">
           <button className="todo-icon-btn">✏️</button>
-          <button className="todo-icon-btn">🗑️</button>
+          <button className="todo-icon-btn" onClick={onDelete}>🗑️</button>
         </div>
       </div>
     </div>
