@@ -5,7 +5,8 @@ import { finalize } from 'rxjs';
 
 import { TODO_STATUS_OPTIONS } from '../../config/todo-status-options';
 import { TodosService } from '../../services/todos-service';
-import { EditTodoContent } from "../edit-todo-content/edit-todo-content";
+import { EditTodoContent } from '../edit-todo-content/edit-todo-content';
+import { TodoStatus, UpdateTodoInput } from '../../model/todo.model';
 
 @Component({
   selector: 'app-single-todo',
@@ -15,22 +16,18 @@ import { EditTodoContent } from "../edit-todo-content/edit-todo-content";
   styleUrls: ['./single-todo.css'],
 })
 export class SingleTodo implements OnInit {
-
   @Input() title!: string;
   @Input() note!: string;
-  @Input() status!: string;
+  @Input() status!: TodoStatus;
   @Input() todoId!: string;
 
   statusOptions = TODO_STATUS_OPTIONS;
   loading = false;
   editMode = false;
 
-  originalStatus!: string;
+  originalStatus!: TodoStatus;
 
-  constructor(
-    private todosService: TodosService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private todosService: TodosService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.originalStatus = this.status;
@@ -42,7 +39,8 @@ export class SingleTodo implements OnInit {
     this.loading = true;
     this.cdr.detectChanges();
 
-    this.todosService.deleteTodo(this.todoId)
+    this.todosService
+      .deleteTodo(this.todoId)
       .pipe(
         finalize(() => {
           this.loading = false;
@@ -59,7 +57,8 @@ export class SingleTodo implements OnInit {
     this.loading = true;
     this.cdr.detectChanges();
 
-    this.todosService.updateTodoStatus(this.todoId, newStatus)
+    this.todosService
+      .updateTodoStatus(this.todoId, newStatus)
       .pipe(
         finalize(() => {
           this.loading = false;
@@ -71,13 +70,24 @@ export class SingleTodo implements OnInit {
           this.originalStatus = newStatus;
         },
         error: () => {
-          this.status = previousStatus; 
+          this.status = previousStatus;
           this.cdr.detectChanges();
-        }
+        },
       });
   }
 
-  handleUpdateTodo(updated: any) {
-    this.editMode = false;
+  handleUpdateTodo(updated: UpdateTodoInput) {
+    this.loading = true;
+
+    this.todosService
+      .updateTodo(this.todoId, updated)
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+          this.editMode = false;
+          this.cdr.detectChanges();
+        })
+      )
+      .subscribe();
   }
 }
