@@ -84,10 +84,15 @@ export class SingleTodo implements OnInit {
       .pipe(
         finalize(() => {
           this.loading = false;
-          this.editMode = false;
           this.cdr.detectChanges();
         })
       )
-      .subscribe();
+      .subscribe(
+        {
+        next: () => {
+          this.editMode = false;
+        }
+      }
+      );
   }
 }
