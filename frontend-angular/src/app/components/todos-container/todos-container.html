@@ -16,15 +16,11 @@
       </div>
     </ng-container>
 
-    <!-- WHEN NOT LOADING -->
     <ng-template #loaded>
 
-      <!-- EMPTY STATE -->
       <ng-container *ngIf="isEmpty$ | async; else todosList">
         <p class="no-todos">No Todo Available</p>
       </ng-container>
-
-      <!-- TODOS LIST -->
       <ng-template #todosList>
         <ng-container *ngFor="let todo of (filteredTodos$ | async)">
           <app-single-todo
