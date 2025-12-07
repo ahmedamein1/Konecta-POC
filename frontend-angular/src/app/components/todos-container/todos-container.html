@@ -9,30 +9,29 @@
     </select>
   </div>
 
-  <div class="todos-container">
-    <ng-container *ngIf="loading$ | async; else loaded">
-      <div class="todos-loading-wrapper">
-        <div class="todos-loading-spinner"></div>
-      </div>
+  <div class="todos-container"
+       [class.empty]="(isEmpty$ | async) || (loading$ | async)">
+
+    <div *ngIf="loading$ | async" class="todos-loading-wrapper">
+      <div class="todos-loading-spinner"></div>
+    </div>
+
+   
+    <p *ngIf="!(loading$ | async) && (isEmpty$ | async)"
+       class="no-todos">
+      No Todo Available
+    </p>
+
+   
+    <ng-container *ngIf="!(loading$ | async) && !(isEmpty$ | async)">
+      <app-single-todo
+        *ngFor="let todo of (filteredTodos$ | async)"
+        [title]="todo.title"
+        [note]="todo.note"
+        [status]="todo.status"
+        [todoId]="todo.id"
+      ></app-single-todo>
     </ng-container>
-
-    <ng-template #loaded>
-
-      <ng-container *ngIf="isEmpty$ | async; else todosList">
-        <p class="no-todos">No Todo Available</p>
-      </ng-container>
-      <ng-template #todosList>
-        <ng-container *ngFor="let todo of (filteredTodos$ | async)">
-          <app-single-todo
-            [title]="todo.title"
-            [note]="todo.note"
-            [status]="todo.status"
-            [todoId]="todo.id"
-          ></app-single-todo>
-        </ng-container>
-      </ng-template>
-
-    </ng-template>
 
   </div>
 
