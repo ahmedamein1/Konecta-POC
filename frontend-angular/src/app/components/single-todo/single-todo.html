@@ -2,6 +2,7 @@
   <div *ngIf="loading" class="todo-spinner"></div>
 
   <div class="todo-card" [ngClass]="'status-' + status">
+
     <div class="todo-left-strip"></div>
 
     <ng-container *ngIf="!editMode">
@@ -29,6 +30,7 @@
       </div>
     </ng-container>
 
+   
     <div *ngIf="editMode" class="edit-todo">
       <app-edit-todo-content
         [title]="title"
