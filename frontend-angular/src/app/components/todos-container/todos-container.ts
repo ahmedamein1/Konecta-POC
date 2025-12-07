@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { TodosService } from '../../services/todos-service';
-import { Todo } from '../../model/todo.model';
 import { SingleTodo } from '../single-todo/single-todo';
+import { Todo } from '../../model/todo.model';
 
 @Component({
   selector: 'app-todos-container',
@@ -14,50 +14,35 @@ import { SingleTodo } from '../single-todo/single-todo';
   templateUrl: './todos-container.html',
   styleUrls: ['./todos-container.css'],
 })
-export class TodosContainer implements OnInit, OnDestroy {
-  
-  todos: Todo[] = [];
-  fetchLoading: boolean = false;
-  filter: string = 'ALL';
+export class TodosContainer implements OnInit {
+  filter = 'ALL';
 
-  private subs = new Subscription();
+  todos$: Observable<Todo[]>;
+  loading$: Observable<boolean>;
 
-  constructor(
-    private todosService: TodosService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private todosService: TodosService) {
+    this.todos$ = this.todosService.todos$;
+    this.loading$ = this.todosService.fetchLoading$;
+  }
 
-  ngOnInit() {
-    this.subs.add(
-      this.todosService.todos$.subscribe((list) => {
-        this.todos = list;
-        this.cdr.detectChanges();
-      })
-    );
-
-    
-    this.subs.add(
-      this.todosService.fetchLoading$.subscribe((isLoading) => {
-        this.fetchLoading = isLoading;
-        this.cdr.detectChanges();
-      })
-    );
-
+  ngOnInit(): void {
     this.todosService.loadTodos();
   }
 
-  ngOnDestroy() {
-    this.subs.unsubscribe();
+  get filteredTodos$() {
+    return this.todos$.pipe(
+      map((todos: Todo[]) => {
+        if (this.filter === 'ALL') return todos;
+        return todos.filter((t) => t.status === this.filter);
+      })
+    );
   }
 
-
-  get filteredTodos(): Todo[] {
-    if (!this.todos) return [];
-    if (this.filter === 'ALL') return this.todos;
-    return this.todos.filter(todo => todo.status === this.filter);
+  get isEmpty$() {
+    return this.filteredTodos$.pipe(map((list) => list.length === 0));
   }
 
-  get isEmpty(): boolean {
-    return this.filteredTodos.length === 0;
+  updateFilter(newFilter: string) {
+    this.filter = newFilter;
   }
 }
