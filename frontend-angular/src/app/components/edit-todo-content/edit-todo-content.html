@@ -11,6 +11,8 @@
     placeholder="Enter title"
   />
 
+  <p *ngIf="error" class="error-text">Title is required.</p>
+
   <label class="edit-label">Note</label>
 
   <textarea

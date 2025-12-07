@@ -8,9 +8,10 @@
   border: 1px solid #e6e6e6;
   transition: 0.2s ease;
   position: relative;
+  width: 100%;
 }
 .edit-todo{
-  width: 95%;
+  width: 90%;
 }
 
 .todo-left-strip {
