@@ -1,11 +1,15 @@
 <div class="active-todo-card">
   <h3 class="active-todo-title">Active Todos:</h3>
 
-  <div *ngIf="fetchTodoLoading; else showCount" class="todos-loading-wrapper">
-    <div class="todos-loading-spinner"></div>
-  </div>
+  <ng-container *ngIf="fetchTodoLoading$ | async; else showCount">
+    <div class="todos-loading-wrapper">
+      <div class="todos-loading-spinner"></div>
+    </div>
+  </ng-container>
 
   <ng-template #showCount>
-    <p class="active-todo-count">{{ activeTodosCount }}</p>
+    <p class="active-todo-count">
+      {{ activeTodosCount$ | async }}
+    </p>
   </ng-template>
 </div>

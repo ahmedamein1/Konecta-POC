@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TodosService } from '../../services/todos-service';
 
 @Component({
@@ -8,38 +8,15 @@ import { TodosService } from '../../services/todos-service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './active-todo-number.html',
-  styleUrls: ['./active-todo-number.css']
+  styleUrls: ['./active-todo-number.css'],
 })
-export class ActiveTodoNumber implements OnInit, OnDestroy {
+export class ActiveTodoNumber {
 
-  fetchTodoLoading!: boolean;
-  activeTodosCount!: number;
+  fetchTodoLoading$: Observable<boolean>;
+  activeTodosCount$: Observable<number>;
 
-  private subs = new Subscription();
-
-  constructor(
-    private todosService: TodosService,
-    private cdr: ChangeDetectorRef
-  ) {}
-
-  ngOnInit(): void {
-
-    this.subs.add(
-      this.todosService.fetchLoading$.subscribe(isLoading => {
-        this.fetchTodoLoading = isLoading;
-        this.cdr.detectChanges();
-      })
-    );
-
-    this.subs.add(
-      this.todosService.activeTodosCount$.subscribe(count => {
-        this.activeTodosCount = count;
-        this.cdr.detectChanges();
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
+  constructor(private todosService: TodosService) {
+    this.fetchTodoLoading$ = this.todosService.fetchLoading$;
+    this.activeTodosCount$ = this.todosService.activeTodosCount$;
   }
 }
