@@ -11,3 +11,9 @@ export interface CreateTodoInput {
   title: string;
   note: string;
 }
+
+export interface UpdateTodoInput {
+  title: string;
+  note: string;
+  status: TodoStatus;
+}
