@@ -14,7 +14,7 @@ import { Todo } from '../../model/todo.model';
   templateUrl: './todos-container.html',
   styleUrls: ['./todos-container.css'],
 })
-export class TodosContainer implements OnInit {
+export class TodosContainer {
   filter = 'ALL';
 
   todos$: Observable<Todo[]>;
@@ -23,10 +23,6 @@ export class TodosContainer implements OnInit {
   constructor(private todosService: TodosService) {
     this.todos$ = this.todosService.todos$;
     this.loading$ = this.todosService.fetchLoading$;
-  }
-
-  ngOnInit(): void {
-    this.todosService.loadTodos();
   }
 
   get filteredTodos$() {

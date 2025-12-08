@@ -35,7 +35,6 @@ export class EditTodoContent {
   }
 
   handleUpdate() {
-    console.log("ss")
     if (!this.editTitle.trim()) {
       this.error = true;
       return;

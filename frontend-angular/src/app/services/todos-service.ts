@@ -26,7 +26,10 @@ export class TodosService {
     return this._activeTodosCount$.asObservable();
   }
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {}
+  constructor(private http: HttpClient, private toastr: ToastrService) {
+    this.loadTodos()
+
+  }
 
   loadTodos() {
     this._fetchLoading$.next(true);
