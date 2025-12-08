@@ -37,7 +37,6 @@ export class SingleTodo implements OnInit {
     if (!this.todoId) return;
 
     this.loading = true;
-    this.cdr.detectChanges();
 
     this.todosService
       .deleteTodo(this.todoId)
@@ -55,7 +54,6 @@ export class SingleTodo implements OnInit {
     const previousStatus = this.originalStatus;
 
     this.loading = true;
-    this.cdr.detectChanges();
 
     this.todosService
       .updateTodoStatus(this.todoId, newStatus)
