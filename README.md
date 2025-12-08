@@ -56,6 +56,70 @@ Mock database:
 backend/todos-data/todos.json
 ```
 
+### Backend Endpoints
+
+All backend routes start with:
+
+```
+/todo
+```
+
+#### **GET /todo/**
+Fetch all todos.
+
+Response contains:
+- todos array  
+- activeTodosNumber  
+
+---
+
+#### **POST /todo/**
+Create a new todo.
+
+Body:
+```json
+{
+  "title": "string (required)",
+  "note": "string"
+}
+```
+
+---
+
+#### **DELETE /todo/reset**
+Delete ALL todos and reset the JSON file.
+
+---
+
+#### **DELETE /todo/:id**
+Delete a todo by ID.
+
+---
+
+#### **PATCH /todo/:id/status**
+Update ONLY the status of a todo.
+
+Body:
+```json
+{
+  "status": "NEW | IN-PROGRESS | DONE"
+}
+```
+
+---
+
+#### **PUT /todo/:id**
+Full update of a todo.
+
+Body:
+```json
+{
+  "title": "string",
+  "note": "string",
+  "status": "NEW | IN-PROGRESS | DONE"
+}
+```
+
 ---
 
 ## React Setup
