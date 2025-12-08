@@ -71,7 +71,7 @@ Response contains:
 - todos array  
 - activeTodosNumber  
 
----
+
 
 #### **POST /todo/**
 Create a new todo.
@@ -84,17 +84,17 @@ Body:
 }
 ```
 
----
+
 
 #### **DELETE /todo/reset**
 Delete ALL todos and reset the JSON file.
 
----
+
 
 #### **DELETE /todo/:id**
 Delete a todo by ID.
 
----
+
 
 #### **PATCH /todo/:id/status**
 Update ONLY the status of a todo.
@@ -106,7 +106,7 @@ Body:
 }
 ```
 
----
+
 
 #### **PUT /todo/:id**
 Full update of a todo.
